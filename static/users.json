@@ -1,0 +1,33 @@
+{
+    "users": [{
+            "id": 1,
+            "name": "John Doe",
+            "nickname": "johndoe123",
+            "avatar": "john_avatar.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Alice Johnson",
+            "nickname": "alice123",
+            "avatar": "alice_avatar.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Michael Smith",
+            "nickname": "mike88",
+            "avatar": "michael_avatar.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Emily Davis",
+            "nickname": "emily_d",
+            "avatar": "emily_avatar.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Daniel Brown",
+            "nickname": "danB",
+            "avatar": "daniel_avatar.jpg"
+        }
+    ]
+}

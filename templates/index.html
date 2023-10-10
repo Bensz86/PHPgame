@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Default Page</title>
+</head>
+
+<body>
+    <h1>Default Page</h1>
+    <div id="messages"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('message_to_default', function(message) {
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += '<p>' + message + '</p>';
+        });
+    </script>
+</body>
+
+</html>
