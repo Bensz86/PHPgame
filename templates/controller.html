@@ -2,27 +2,271 @@
 <html>
 
 <head>
-    <title>Controller Page</title>
+    <title>DE Controller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google" content="notranslate" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, notranslate, noimageindex">
+    <link href="{{ url_for('static', filename='styles/general.css')}}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        #controller {
+            background-image: url("{{ url_for('static', filename='databoy.png') }}");
+            background-size: cover;
+            /* Additional styles for the body can be added here */
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Controller Page</h1>
-    <input type="text" id="messageInput" placeholder="Enter your message">
-    <button onclick="sendMessage()">Send</button>
-    <div id="response"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
-    <script>
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+    <div id="container">
+        <div id="controller">
+            <div id="disablecontroller" class="invisible"></div>
+            <div id="lcd">
 
-        function sendMessage() {
-            var message = document.getElementById('messageInput').value;
-            socket.emit('message_from_controller', message);
-        }
-        socket.on('custom_message_to_controller', function(message) {
-            var responseDiv = document.getElementById('response');
-            responseDiv.innerHTML = '<p>' + message + '</p>';
-        });
-    </script>
+            </div>
+            <div id="buttons">
+                <div id="manualstick">
+                    <div class="row">
+                        <button id="btnA">A</button>
+                    </div>
+                    <div class="row">
+                        <button id="btnD">D</button>
+                        <button id="btnB">B</button>
+
+                    </div>
+                    <div class="row">
+                        <button id="btnC">C</button>
+                    </div>
+                </div>
+                <div id="controls">
+                    <button id="btnErase">Erase</button>
+                    <button id="btnEnter">Enter</button>
+                </div>
+                <input type="text" id="sendit">
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            $("#btnA").click(function(){
+                selectOpt("A");
+            });
+            $("#btnB").click(function(){
+                selectOpt("B");
+            });
+            $("#btnC").click(function(){
+                selectOpt("C");
+            });
+            $("#btnD").click(function(){
+                selectOpt("D");
+            });
+            $("#btnErase").click(function(){
+                $('#sendit').val('');
+                clearOpt();
+            });
+            $("#btnEnter").click(function(){
+                sendMessage();
+            });
+            //read status
+            $.getJSON("static/data/config.json", function (data) {
+
+            });
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            /*üzi küldése a szarvernek*/
+            function sendMessage() {
+                var message = document.getElementById('sendit').value;
+                socket.emit('message_from_controller', message);
+                displayallowed("no");
+            }
+
+            function displayallowed(val) {
+                if (val == "yes") {
+                    $("#disablecontroller").addClass("invisible");
+                    $("#disablecontroller").removeClass("visible");
+                } else {
+                    $("#disablecontroller").removeClass("invisible");
+                    $("#disablecontroller").addClass("visible");
+                }
+            }
+
+            /*üzi fogadás a szarver felől*/
+            socket.on('custom_message_to_controller', function (message) {
+                if (message.startsWith("name")) {
+                    name = message.split(",")[1];
+                    //change map
+                    writemsg2(map, 1, 18);
+                    console.log("map changed");
+                    // code block
+                }
+                else if (message == "admin_disable_screen") {
+                    displayallowed("no");
+                    console.log("screen disabled");
+                }
+                else if (message == "admin_allow_screen") {
+                    displayallowed("yes");
+                    console.log("screen enabled");
+                    // code block
+                }
+                else if (message.startsWith("changemap")) {
+                    map = message.split(",")[1];
+                    displayallowed("yes");
+                    //change map
+                    changemap("map");
+                    clearOpt();
+                    console.log("map changed");
+                    // code block
+                }
+
+            });
+
+            var lcdrows = 11;
+            var lcdcolumns = 20;
+            
+                var lcd = new LCD({
+                    elem: document.getElementById("lcd"),
+                    rows: 11,
+                    columns: 20,
+                    pixelSize: 2,
+                    pixelColor: "#000"
+                });
+                function writemsg(msg, rownr, offset) {
+                    if (rownr < 1) {
+                        x = offset - 1;
+                    } else {
+                        x = lcdcolumns * rownr + offset - 1;
+                    }
+                    lcd.writeString({
+                        string: msg,
+                        offset: x
+                    });
+                }
+                async function writemsg2(msg, rownr, offset) {
+                    return new Promise(resolve => {
+                        let x;
+                        if (rownr < 1) {
+                            x = offset - 1;
+                        } else {
+                            x = lcdcolumns * rownr + offset - 1;
+                        }
+                        let len = 0;
+                        var interv = setInterval(function () {
+                            tochar = msg[len];
+                            // console.log(msg + " " + tochar + " " + tochar.charCodeAt(0));
+                            lcd.writeCharacter({
+                                charCode: tochar.charCodeAt(0),
+                                blockIndex: x + len
+                            });
+                            len++;
+                            if (len == msg.length) {
+                                clearInterval(interv);
+                                resolve(); // Resolve the promise when the function is done
+                            }
+                        }, 100);
+                    });
+                }
+                function sleep(milliseconds) {
+                    const date = Date.now();
+                    let currentDate = null;
+                    do {
+                        currentDate = Date.now();
+                    } while (currentDate - date < milliseconds);
+                }
+
+                async function changemap(map) {
+                    await writemsg2("Mennyi az annyi?", 3, 1);
+                    await  writemsg2("A: Annyi", 7, 2);
+                    await  writemsg2("B: Ennyi", 8, 2);
+                    await  writemsg2("C: Faszom", 9, 2);
+                    await  writemsg2("D: Tied", 10, 2);
+                }
+
+                function selectOpt(letter){
+                    clearOpt();
+                    if (letter=='A'){
+                        writemsg2(">", 7, 1);
+
+                    }
+                    if (letter=='B'){
+                        writemsg2(">", 8, 1);
+                    }
+                    if (letter=='C'){
+                        writemsg2(">", 9, 1);
+                    }
+                    if (letter=='D'){
+                        writemsg2(">", 10, 1);
+                    }
+
+                }
+            
+                function clearOpt(){
+                    lcd.clearCharacter({ blockIndex: 200 });
+                    //lcd.clearCharacter({ blockIndex: 201 });
+                    lcd.clearCharacter({ blockIndex: 140 });
+                    //lcd.clearCharacter({ blockIndex: 141 });
+                    lcd.clearCharacter({ blockIndex: 160 });
+                    //lcd.clearCharacter({ blockIndex: 161 });
+                    lcd.clearCharacter({ blockIndex: 180 });
+                    //lcd.clearCharacter({ blockIndex: 181 });
+                }
+
+                ind = -20;
+            var invl = setInterval(function () {
+                writemsg("....................", 0, ind);
+                writemsg(".....DDDDDDDDDDD....", 1, ind);
+                writemsg("...D................", 2, ind);
+                writemsg(".DD....DDDDDDDD.....", 3, ind);
+                writemsg(".DD..............D..", 4, ind);
+                writemsg(".DD...DDDDDDDD...DD.", 5, ind);
+                writemsg(".DD..............DD.", 6, ind);
+                writemsg("..D..DDDDDDDD....D..", 7, ind);
+                writemsg("...............DD...", 8, ind);
+                writemsg("......DDDDDDDD......", 9, ind);
+                writemsg("....................", 10, ind);
+                ind++;
+                //console.log(ind)
+                if (ind == 2) {
+                    clearInterval(invl)
+                    setTimeout(function () {
+                        lcd.clearScreen();
+                        writemsg2("Szia " + "Feri!", 0, 2)
+                            .then(() => writemsg2("Pont: " + "0", 1, 2));
+                    }, 1500);
+                }
+            }, 100);
+                /*var index = 0;
+                var invl = setInterval(function() {
+                    // clear screen
+                    lcd.clearScreen();
+    
+                    // write new string
+                    lcd.writeString({
+                        string: "Hello World! This is my first LCD message.",
+                        offset: index++
+                    });
+    
+                    // clear interval
+                    if (index === 32) {
+                        clearInterval(invl);
+                    }
+                }, 500);
+    
+                lcd.writeString({
+                    string: "Hello World!",
+                    offset: 3
+                });*/
+                let count = 0;
+                setInterval(() => {
+                socket.volatile.emit("ping", ++count);
+                }, 60000);
+            });
+
+        </script>
+        <script type="text/javascript" src="static/lcd.js"></script>
 </body>
 
 </html>

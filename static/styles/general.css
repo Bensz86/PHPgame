@@ -1,0 +1,97 @@
+div#container {
+    width: 600px;
+    height: 1000px;
+    background: greenyellow;
+    margin: auto
+}
+
+#controller {
+    height: 100%;
+    width: auto
+}
+
+#lcd {
+    max-width: calc(100% - 260px);
+    margin: auto;
+    display: block;
+    padding-top: 140px
+}
+
+#lcd canvas {
+    margin-left: 8px;
+    margin-top: 6px
+}
+
+#disablecontroller.invisible {
+    display: none
+}
+
+#disablecontroller.visible {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background: rgba(0, 0, 0, .5);
+    left:0;
+    top:0;
+    
+}
+
+#disablecontroller.visible+div {
+    filter: blur(3px) !important;
+}
+
+#buttons {
+    position: relative
+}
+
+#manualstick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    position: absolute;
+    top: 170px;
+    left: -30px
+}
+
+#manualstick button {
+    margin: 2px;
+    padding: 15px 20px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: 4px initial grey;
+    box-shadow: 0 2px 4px darkslategray;
+}
+
+#btnB {
+    margin-left: 50px !important
+}
+
+#btnEnter {
+    margin-left: 28px !important
+}
+
+#controls button {
+    background: #6b111e;
+    color: white;
+    font-weight: bold;
+    border: 3px initial #6b111e;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 30px 15px;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px darkslategray;
+    transform: rotate(1deg)
+}
+
+#controls {
+    position: absolute;
+    transform: rotate(-26deg);
+    float: right;
+    margin-right: 30px;
+    top: 210px;
+    right: 0px
+}

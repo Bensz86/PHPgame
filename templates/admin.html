@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, notranslate, noimageindex">
+    <title>Admin Page</title>
+    <style>
+        #btncontainer button {
+    width: 40px;
+    height: 40px;
+    margin-right:10px;
+    margin-top:10px;
+}
+
+#screencontrols {margin-top:20px}
+
+#screencontrols button{
+    width: 114px;
+    height: 40px;    
+    margin-right:10px;
+    margin-top:10px;
+}
+#logging {margin-top:25px}
+#logging span {font-weight:bold}
+#logging p {line-height:0.3em}
+#logging {max-height:300px;
+         overflow-x:auto}
+         #logging p:first-child {
+    font-weight: bold;
+    background:#8BC34A !important;
+    padding:5px
+}
+.selected {background: #8BC34A;}
+    </style>
+</head>
+
+<body>
+    <div><span><b>Current level:</b></span><span>A2</span></div>
+    <div><span><b>Change level:</b></span>
+        <div id="btncontainer">
+            <div><button onclick="changeMapTo('A1')">A1</button><button onclick="changeMapTo('A2')">A2</button><button onclick="changeMapTo('A3')">A3</button><button onclick="changeMapTo('A4')">A4</button><button onclick="changeMapTo('A5')">A5</button></div>
+            <div><button onclick="changeMapTo('B1')">B1</button><button onclick="changeMapTo('B2')">B2</button><button onclick="changeMapTo('B3')">B3</button><button onclick="changeMapTo('B4')">B4</button><button onclick="changeMapTo('B5')">B5</button></div>
+            <div><button onclick="changeMapTo('C1')">C1</button><button onclick="changeMapTo('C2')">C2</button><button onclick="changeMapTo('C3')">C3</button><button onclick="changeMapTo('C4')">C4</button><button onclick="changeMapTo('C5')">C5</button></div>
+            <div><button onclick="changeMapTo('D1')">D1</button><button onclick="changeMapTo('D2')">D2</button><button onclick="changeMapTo('D3')">D3</button><button onclick="changeMapTo('D4')">D4</button><button onclick="changeMapTo('D5')">D5</button></div>
+            <div><button onclick="changeMapTo('E1')">D1</button><button onclick="changeMapTo('E2')">D2</button><button onclick="changeMapTo('E3')">D3</button><button onclick="changeMapTo('E4')">D4</button><button onclick="changeMapTo('E5')">D5</button></div>
+        </div>
+        <div id="screencontrols"><div><button onclick="sendMessage('admin_disable_screen');addlog('screen disabled');">Disable screens</button><button onclick="sendMessage('admin_allow_screen');addlog('screen enabled');">Enable screens</button></div></div>
+    </div>
+    <!---<input type="text" id="messageInput" placeholder="Enter your message">
+    <button onclick="sendMessage()">Send</button>-->
+    <div id="response"></div>
+    <div id="logging">
+    <span>Admin log:</span>
+    <div id="log"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+    <script>
+        //init basic
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        //basic send
+        function sendMessage(message) {
+            socket.emit('message_from_admin', message);
+        }
+
+        function getDateTime(){
+            var currentDateTime = new Date();
+            var date = currentDateTime.toLocaleDateString(); // Get the date (e.g., 10/23/2023)
+            var time = currentDateTime.toLocaleTimeString();
+            return date + " " + time;
+        }
+
+        function addlog(message){
+            time = getDateTime();
+            $("#log").prepend("<p>"+ time +" - " + message + "</p>")
+        }
+
+        function changeMapTo(where){
+            sendMessage('changemap,'+where);
+            $("button:contains("+where+")").addClass("selected");//.attr("disabled",true);
+            addlog("map changed to: "+where);
+        }
+
+        /*
+        socket.on('custom_message_to_controller', function(message) {
+        var responseDiv = document.getElementById('response');
+        responseDiv.innerHTML = '<p>' + message + '</p>';
+        });*/
+    </script>
+</body>
+
+</html>

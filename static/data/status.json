@@ -36,7 +36,9 @@
             "points": 0
         }
     ],
-    "current_level_id": [{ "id": 1 }],
+    "current_level_id": [{ 
+        "id": 1 
+        }],
     "levels": [{
             "id": 1,
             "description": "Beginner",
