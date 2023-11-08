@@ -66,8 +66,8 @@
 
             document.addEventListener('DOMContentLoaded', function () {
                 function removeAccents(str) {
-                var accents = 'áéóöőúüűÁÉÓÖŐÚÜŰ';
-                var nonAccents = 'aeooouuuAEOOOUUU';
+                var accents = 'íáéóöőúüűÍÁÉÓÖŐÚÜŰ';
+                var nonAccents = 'iaeooouuuIAEOOOUUU';
                 var accentMap = {};
                 for (var i = 0; i < accents.length; i++) {
                     accentMap[accents.charAt(i)] = nonAccents.charAt(i);
@@ -130,6 +130,7 @@
                 });
                 $("#btnEnter").click(function () {
                     sendMessage($('#sendit').val());
+                    $('#sendit').val("");
                 });
                 //read status
                 $.getJSON("static/data/config.json", function (data) {
@@ -162,6 +163,7 @@
                 socket.on('message_to_controller', function (message) {
                     if (message.startsWith("question")) {
                         changequest(message);
+                        displayallowed("yes");
                         //change map
                         //writemsg2(map, 1, 18);
                         lcd.clearScreen();

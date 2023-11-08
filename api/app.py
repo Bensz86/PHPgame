@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO
 import json
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
