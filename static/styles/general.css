@@ -22,6 +22,20 @@ div#container {
     margin-top: 6px
 }
 
+#csapatnev {font-family:arial;
+    margin:auto;
+    width:100%;
+    max-width:600px;
+  background: #999966;
+           height: 100vh !important;
+           position:absolute;
+           left:0;
+           right:0;
+           z-index:5}
+
+#csapatnev span {margin-right:20px;font-weight:bold}
+#csapatnev button {width:70px}
+
 #disablecontroller.invisible {
     display: none
 }
@@ -67,7 +81,7 @@ div#container {
 }
 
 #btnB {
-    margin-left: 50px !important
+    margin-left: 130px !important
 }
 
 #btnEnter {

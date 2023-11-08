@@ -5,11 +5,13 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['STATIC_FOLDER'] = 'static'
+app.config['CUSTOM_FOLDER'] = 'DATABIRTH'
+
 socketio = SocketIO(app) 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('DATABIRTH.html')
 
 @app.route('/admin')
 def admin():
@@ -24,19 +26,37 @@ def controller():
 @socketio.on('message_from_controller')
 def handle_message(message):
     print("Received message from controller:", message)
-    socketio.emit('message_to_default', message)
-    socketio.emit('custom_message_to_controller', 'Message received by the server!')
+    socketio.emit('message_to_board', message)
+    # socketio.emit('message_to_controller', 'Message received by the server!')
 
 @socketio.on('message_from_admin')
 def handle_message(message):
     print("Received message from admin:", message)
-    #socketio.emit('message_to_default', message)
-    socketio.emit('custom_message_to_controller', message)
+    socketio.emit('message_to_board', message)
+    socketio.emit('message_to_controller', message)
+
+@socketio.on('message_from_board')
+def handle_message(message):
+    print("Received message from board:", message)
+    #socketio.emit('message_to_board', message)
+    socketio.emit('message_to_controller', message)
+
+
+
+#PING
+@socketio.on('ping_admin')
+def handle_message(message):
+    print(f"Admin alive: {message} minutes")
+
+@socketio.on('ping_board')
+def handle_message(message):
+    print(f"Board alive: {message} minutes")
 
 @socketio.on('ping')
 def handle_message(message):
-    print("User "+ str(request.args.get('user')) + " alive:", message)
+    print(f"User "+ str(request.args.get('user')) + " alive: {message} minutes")
     #socketio.emit('message_to_default', message)
+
 
 def get_question_data(index, filename='static/data/config.json', delimiter='|'):
     try:

@@ -1,0 +1,314 @@
+@font-face {
+    font-family: PixelArt;
+    src: url({{ url_for('static', filename='fonts/EightBitDragon-anqx.ttf')}});
+  }
+
+body{    
+    font-family: PixelArt;
+}
+
+.button{
+    z-index:6;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.Infos{
+    z-index:3;
+    position: absolute;
+    margin: auto;
+    text-align: center;
+    top: 10%;
+    font-size: 60px;
+    border-style: solid solid solid solid;
+    border-bottom-width: 5px;
+    border-top-width: 5px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    padding: 5px;
+    background-color: rgba(30, 255, 0, 0.8);
+}
+
+#Counter{
+    z-index:7;
+    position: absolute;
+    margin: auto;
+    text-align: center;
+    top: 50%;
+}
+
+#QuestionDIV{
+    z-index:3;
+    position: absolute;
+    justify-content: center;
+    text-align: center;
+    border-style: double solid solid double;
+    border-bottom-width: 10px;
+    border-top-width: 10px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    top: 20%;
+    padding: 5px;
+    background-color: rgba(30, 255, 0, 0.8);
+}
+
+#QuestionTEXT{
+    font-size: 40px;
+}
+
+.OptionTEXT{
+    font-size: 40px;
+    text-align: center;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    /*display: block;
+    margin-left: auto;
+    margin-right: auto;*/
+   }
+
+.dice{
+    position: absolute;
+    margin: auto;
+    top:30%
+}
+
+#CharacterToolbar{
+    z-index:20;
+    position: absolute;
+    width: 50%;
+    /*text-align: center;*/
+    border-style: double solid solid double;
+    border-bottom-width: 10px;
+    border-top-width: 10px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    background-color: rgb(172, 92, 0);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border-radius: 25px;
+    font-size: 25px;
+}
+
+#Portrait{
+    border-style: solid solid solid solid;
+    border-bottom-width: 5px;
+    border-top-width: 5px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-radius: 10px;
+    width: 150px;
+}
+/*.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}*/
+
+.float-child {
+    width: 25%;
+    float: left;
+}
+#PlayerName{
+    padding-left: 10px;
+}
+
+#Score{
+    padding-bottom: 40px;
+}
+
+.float-dice-left-child {
+    width: 90%;
+    float: left;
+}
+.float-dice-right-child {
+    width: 90%;
+    float: right;
+}
+
+#DamageNumber{
+    position: absolute;
+    font-size: 50px;
+    z-index: 4;
+    color: red;
+    left: 81%;
+    top: 35%;
+    animation: mymove 2s infinite;
+}
+
+@keyframes mymove {
+  from {top: 35%;}
+  to {top: 0%;}
+}
+
+.FONOK{
+    position: absolute;
+    bottom: 0%;
+    z-index: 20;
+}
+
+#Zoli{
+    width: 30%;
+    left: -25%;
+    animation: zolimove 5s;
+    animation-fill-mode: forwards;
+}
+@keyframes zolimove {
+    from {left: -25%;}
+    to {left: 35%;}
+  }
+
+#ZoliBonus{
+    position: absolute;
+    display: block;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 19;
+    top: 35%;
+    animation: ZoliBonusmove 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes ZoliBonusmove {
+  from {top: 35%;}
+  to {top: 0%;}
+}
+#Dezso{
+    width: 30%;
+    left: -15%;
+    animation: dezsomove 5s;
+    animation-fill-mode: forwards
+}
+@keyframes dezsomove {
+    from {left: -20%;}
+    to {left: 35%;}
+  }
+#DezsoBonus{
+    position: absolute;
+    display: block;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 19;
+    top: 35%;
+    animation: DezsoBonusmove 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes DezsoBonusmove {
+  from {top: 35%;}
+  to {top: 0%;}
+}
+
+#Boom{
+    position: absolute;
+    display: block;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 19;
+}
+
+#DoubleBlessing{
+    position: absolute;
+    display: block;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 19;
+    top: 35%;
+    animation: DoubleBlessingmove 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes DoubleBlessingmove {
+  from {top: 35%;}
+  to {top: 0%;}
+}
+
+#Tumbleweed{
+    width: 20%;
+    left: -25%;
+    animation: Tumbleweedmove 3s;
+    animation-fill-mode: forwards;
+}
+@keyframes Tumbleweedmove {
+    from {left: -25%;}
+    to {left: 100%;}
+  }
+
+#ZoliDezso{
+    width: 80%;
+    left: 10%;
+    animation: ZoliDezsomove 5s;
+    animation-fill-mode: forwards;
+}
+@keyframes ZoliDezsomove {
+    from {top: -50%;}
+    to {top: 30%;}
+  }
+
+#Player1{
+    z-index: 10;
+}
+#Player2{
+    z-index: 10;
+}
+#Player3{
+    z-index: 10;
+}
+#Player4{
+    z-index: 10;
+}
+#Player5{
+    z-index: 10;
+}
+#Player6{
+    z-index: 10;
+}
+#Player7{
+    z-index: 10;
+}
+
+#Curse1{
+    z-index: 11;
+}
+#Curse2{
+    z-index: 11;
+}
+#Curse3{
+    z-index: 11;
+}
+#Curse4{
+    z-index: 11;
+}
+#Curse5{
+    z-index: 11;
+}
+#Curse6{
+    z-index: 11;
+}
+#Curse7{
+    z-index: 11;
+}
+
+#Boss1{
+    z-index: 12;
+}
+#Boss2{
+    z-index: 12;
+}
+#Boss3{
+    z-index: 12;
+}
+#Boss4{
+    z-index: 12;
+}
+#Boss5{
+    z-index: 12;
+}
+
+[hidden] { display: none !important;}

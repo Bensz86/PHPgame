@@ -21,6 +21,16 @@
 </head>
 
 <body>
+    <div id="csapatnev" style="display: none;">
+        <p align="center">
+            <font size="+3"><b>DataExpert Teamname Planning System</b></font>
+        </p>
+        <p>
+            <span>Add meg a csapatnevet: </span>
+            <input type="text"><br>
+            <center><button id="teamname">OK</button></center>
+        </p>
+    </div>
     <div id="container">
         <div id="controller">
             <div id="disablecontroller" class="invisible"></div>
@@ -33,7 +43,7 @@
                         <button id="btnA">A</button>
                     </div>
                     <div class="row">
-                        <button id="btnD">D</button>
+                        <!--<button id="btnD" disabled>D</button>-->
                         <button id="btnB">B</button>
 
                     </div>
@@ -51,82 +61,136 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
 
         <script>
+            var team = "";
+            /*accent eltávolító, bocsiii*/
+
             document.addEventListener('DOMContentLoaded', function () {
-            $("#btnA").click(function(){
-                selectOpt("A");
-            });
-            $("#btnB").click(function(){
-                selectOpt("B");
-            });
-            $("#btnC").click(function(){
-                selectOpt("C");
-            });
-            $("#btnD").click(function(){
-                selectOpt("D");
-            });
-            $("#btnErase").click(function(){
-                $('#sendit').val('');
-                clearOpt();
-            });
-            $("#btnEnter").click(function(){
-                sendMessage();
-            });
-            //read status
-            $.getJSON("static/data/config.json", function (data) {
-
-            });
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-            /*üzi küldése a szarvernek*/
-            function sendMessage() {
-                var message = document.getElementById('sendit').value;
-                socket.emit('message_from_controller', message);
-                displayallowed("no");
+                function removeAccents(str) {
+                var accents = 'áéóöőúüűÁÉÓÖŐÚÜŰ';
+                var nonAccents = 'aeooouuuAEOOOUUU';
+                var accentMap = {};
+                for (var i = 0; i < accents.length; i++) {
+                    accentMap[accents.charAt(i)] = nonAccents.charAt(i);
+                }
+                var accentRe = new RegExp('[' + accents + ']', 'g');
+                return str.replace(accentRe, function (match) {
+                    return accentMap[match];
+                });
             }
+                const urlParams = new URLSearchParams(window.location.search);
+                const userValue = urlParams.get('user');
 
-            function displayallowed(val) {
-                if (val == "yes") {
-                    $("#disablecontroller").addClass("invisible");
-                    $("#disablecontroller").removeClass("visible");
-                } else {
-                    $("#disablecontroller").removeClass("invisible");
-                    $("#disablecontroller").addClass("visible");
+                function setCookie(name, value, days) {
+                    const expires = new Date();
+                    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+                    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
                 }
-            }
+                function getCookie(name) {
+                    const decodedCookie = decodeURIComponent(document.cookie);
+                    const cookieArray = decodedCookie.split(';');
+                    for (let i = 0; i < cookieArray.length; i++) {
+                        const cookie = cookieArray[i].trim().split('=');
+                        const cookieName = cookie[0];
+                        const cookieValue = cookie[1];
 
-            /*üzi fogadás a szarver felől*/
-            socket.on('custom_message_to_controller', function (message) {
-                if (message.startsWith("name")) {
-                    name = message.split(",")[1];
-                    //change map
-                    writemsg2(map, 1, 18);
-                    console.log("map changed");
-                    // code block
+                        if (cookieName === name) {
+                            return cookieValue;
+                        }
+                    }
+                    // Return null if cookie with the specified name is not found
+                    return null;
                 }
-                else if (message == "admin_disable_screen") {
-                    displayallowed("no");
-                    console.log("screen disabled");
-                }
-                else if (message == "admin_allow_screen") {
-                    displayallowed("yes");
-                    console.log("screen enabled");
-                    // code block
-                }
-                else if (message.startsWith("changemap")) {
-                    map = message.split(",")[1];
-                    displayallowed("yes");
-                    //change map
-                    changemap("map");
+
+
+
+                $("#teamname").click(function () {
+                    team_accent = removeAccents($("#csapatnev input").val());
+                    sendTeamname("teamname," + userValue + "," + $("#csapatnev input").val());
+                    setCookie("teamname", team_accent, 31);
+                    $("#csapatnev").hide();
+                    team = team_accent;
+                    writemsg2("Hajra " + team + "!", 0, 1)
+                });
+
+                $("#btnA").click(function () {
+                    selectOpt("A");
+                });
+                $("#btnB").click(function () {
+                    selectOpt("B");
+                });
+                $("#btnC").click(function () {
+                    selectOpt("C");
+                });
+                /*$("#btnD").click(function(){
+                    selectOpt("D");
+                });*/
+                $("#btnErase").click(function () {
+                    $('#sendit').val('');
                     clearOpt();
-                    console.log("map changed");
-                    // code block
+                });
+                $("#btnEnter").click(function () {
+                    sendMessage($('#sendit').val());
+                });
+                //read status
+                $.getJSON("static/data/config.json", function (data) {
+
+                });
+                var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+                /*üzi küldése a szarvernek*/
+                function sendMessage() {
+                    var message = document.getElementById('sendit').value;
+                    socket.emit('message_from_controller', message);
+                    displayallowed("no");
+                }
+                function sendTeamname(message) {
+                    socket.emit('message_from_controller', message);
                 }
 
-            });
 
-            var lcdrows = 11;
-            var lcdcolumns = 20;
-            
+                function displayallowed(val) {
+                    if (val == "yes") {
+                        $("#disablecontroller").addClass("invisible");
+                        $("#disablecontroller").removeClass("visible");
+                    } else {
+                        $("#disablecontroller").removeClass("invisible");
+                        $("#disablecontroller").addClass("visible");
+                    }
+                }
+
+                /*üzi fogadás a szarver felől*/
+                socket.on('message_to_controller', function (message) {
+                    if (message.startsWith("question")) {
+                        changequest(message);
+                        //change map
+                        //writemsg2(map, 1, 18);
+                        lcd.clearScreen();
+                        console.log("map changed");
+                        // code block
+                    }
+                    else if (message == "admin_disable_screen") {
+                        displayallowed("no");
+                        console.log("screen disabled");
+                    }
+                    else if (message == "admin_allow_screen") {
+                        displayallowed("yes");
+                        console.log("screen enabled");
+                        // code block
+                    }
+                    /*else if (message == "admin_next-level") {
+                        displayallowed("yes");
+                        //change map
+                        //changemap("map");
+                        lcd.clearScreen();
+                        console.log("question changed");
+                        // code block
+                    }*/
+
+                });
+
+                var lcdrows = 11;
+                var lcdcolumns = 20;
+
                 var lcd = new LCD({
                     elem: document.getElementById("lcd"),
                     rows: 11,
@@ -134,15 +198,18 @@
                     pixelSize: 2,
                     pixelColor: "#000"
                 });
-                function writemsg(msg, rownr, offset) {
-                    if (rownr < 1) {
-                        x = offset - 1;
-                    } else {
-                        x = lcdcolumns * rownr + offset - 1;
-                    }
-                    lcd.writeString({
-                        string: msg,
-                        offset: x
+                async function writemsg(msg, rownr, offset) {
+                    return new Promise(resolve => {
+                        if (rownr < 1) {
+                            x = offset - 1;
+                        } else {
+                            x = lcdcolumns * rownr + offset - 1;
+                        }
+                        lcd.writeString({
+                            string: msg,
+                            offset: x
+                        });
+                        resolve();
                     });
                 }
                 async function writemsg2(msg, rownr, offset) {
@@ -177,67 +244,85 @@
                     } while (currentDate - date < milliseconds);
                 }
 
-                async function changemap(map) {
-                    await writemsg2("Mennyi az annyi?", 3, 1);
-                    await  writemsg2("A: Annyi", 7, 2);
-                    await  writemsg2("B: Ennyi", 8, 2);
-                    await  writemsg2("C: Faszom", 9, 2);
-                    await  writemsg2("D: Tied", 10, 2);
+                async function changequest(message) {
+                    quest = message.split(",")[1];
+                    opt1 = message.split(",")[2];
+                    opt2 = message.split(",")[3];
+                    opt3 = message.split(",")[4];
+                    await writemsg2(removeAccents(quest), 0, 1);
+                    await writemsg2("A "+ removeAccents(opt1), 5, 2);
+                    await writemsg2("B "+ removeAccents(opt2), 7, 2);
+                    await writemsg2("C "+ removeAccents(opt3), 9, 2);
                 }
 
-                function selectOpt(letter){
+                async function dice() {
+                    await writemsg2("Dobj a kockaval!", 3, 1);
+                }
+
+                function selectOpt(letter) {
                     clearOpt();
-                    if (letter=='A'){
+                    if (letter == 'A') {
+                        writemsg2(">", 5, 1);
+                        $("#sendit").val("player,"+userValue+","+0)
+                    }
+                    if (letter == 'B') {
                         writemsg2(">", 7, 1);
-
+                        $("#sendit").val("player,"+userValue+","+1)
                     }
-                    if (letter=='B'){
-                        writemsg2(">", 8, 1);
-                    }
-                    if (letter=='C'){
+                    if (letter == 'C') {
                         writemsg2(">", 9, 1);
+                        $("#sendit").val("player,"+userValue+","+2)
                     }
-                    if (letter=='D'){
+                    /*if (letter=='D'){
                         writemsg2(">", 10, 1);
-                    }
+                    }*/
 
                 }
-            
-                function clearOpt(){
-                    lcd.clearCharacter({ blockIndex: 200 });
+
+                function clearOpt() {
+                    lcd.clearCharacter({ blockIndex: 100 });
                     //lcd.clearCharacter({ blockIndex: 201 });
                     lcd.clearCharacter({ blockIndex: 140 });
                     //lcd.clearCharacter({ blockIndex: 141 });
-                    lcd.clearCharacter({ blockIndex: 160 });
-                    //lcd.clearCharacter({ blockIndex: 161 });
                     lcd.clearCharacter({ blockIndex: 180 });
+                    //lcd.clearCharacter({ blockIndex: 161 });
+                    //lcd.clearCharacter({ blockIndex: 180 });
                     //lcd.clearCharacter({ blockIndex: 181 });
                 }
 
+
                 ind = -20;
-            var invl = setInterval(function () {
-                writemsg("....................", 0, ind);
-                writemsg(".....DDDDDDDDDDD....", 1, ind);
-                writemsg("...D................", 2, ind);
-                writemsg(".DD....DDDDDDDD.....", 3, ind);
-                writemsg(".DD..............D..", 4, ind);
-                writemsg(".DD...DDDDDDDD...DD.", 5, ind);
-                writemsg(".DD..............DD.", 6, ind);
-                writemsg("..D..DDDDDDDD....D..", 7, ind);
-                writemsg("...............DD...", 8, ind);
-                writemsg("......DDDDDDDD......", 9, ind);
-                writemsg("....................", 10, ind);
-                ind++;
-                //console.log(ind)
-                if (ind == 2) {
-                    clearInterval(invl)
-                    setTimeout(function () {
-                        lcd.clearScreen();
-                        writemsg2("Szia " + "Feri!", 0, 2)
-                            .then(() => writemsg2("Pont: " + "0", 1, 2));
-                    }, 1500);
-                }
-            }, 100);
+                var invl = setInterval(function () {
+                    writemsg("....................", 0, ind);
+                    writemsg(".....DDDDDDDDDDD....", 1, ind);
+                    writemsg("...D................", 2, ind);
+                    writemsg(".DD....DDDDDDDD.....", 3, ind);
+                    writemsg(".DD..............D..", 4, ind);
+                    writemsg(".DD...DDDDDDDD...DD.", 5, ind);
+                    writemsg(".DD..............DD.", 6, ind);
+                    writemsg("..D..DDDDDDDD....D..", 7, ind);
+                    writemsg("...............DD...", 8, ind);
+                    writemsg("......DDDDDDDD......", 9, ind);
+                    writemsg("....................", 10, ind);
+                    ind++;
+                    //console.log(ind)
+                    if (ind == 2) {
+                        clearInterval(invl)
+                        setTimeout(function () {
+                            lcd.clearScreen();
+                            if (getCookie("teamname") == null) {
+                                $("#csapatnev").show();
+                            } else {
+                                $("#csapatnev").hide();
+                                team = getCookie("teamname");
+                                writemsg2("Hajra " + team + "!", 0, 1)
+                            }
+
+                            
+                            // .then(() => writemsg2("Pont: " + "0", 1, 2));
+                        }, 1500);
+                    }
+                }, 100);
                 /*var index = 0;
                 var invl = setInterval(function() {
                     // clear screen
@@ -261,12 +346,15 @@
                 });*/
                 let count = 0;
                 setInterval(() => {
-                socket.volatile.emit("ping", ++count);
+                    socket.volatile.emit("ping", ++count);
                 }, 60000);
             });
 
         </script>
-        <script type="text/javascript" src="static/lcd.js"></script>
+        <script type="text/javascript" src="static/lcd.js">
+            import { characterMap } from 'static/character-map';
+        </script>
+        <!--<script type="text/javascript" src="static/character-map.js"></script>-->
 </body>
 
 </html>
