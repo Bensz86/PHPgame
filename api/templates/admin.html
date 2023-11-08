@@ -73,7 +73,7 @@ div#btncontainer button{width:180px}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
     <script>
         //init basic
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var socket = io.connect('https://' + document.domain + ':' + location.port);
         //basic send
         function sendMessage(message) {
             socket.emit('message_from_admin', message);

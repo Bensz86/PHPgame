@@ -203,7 +203,7 @@
 
 </body>
 <script>
-  var socket = io.connect('http://' + document.domain + ':' + location.port);
+  var socket = io.connect('https://' + document.domain + ':' + location.port);
   document.addEventListener('DOMContentLoaded', function () {
     socket.on('message_to_board', function (message) {
       console.log(message);
