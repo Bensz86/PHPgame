@@ -81,5 +81,7 @@ index = 0  # Change this index to get data for a different question
 #print(question_data)
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))  # Use 5000 as a fallback
+    app.run(host='0.0.0.0', port=port)
     app.run(debug=True)
     socketio.run(app)
