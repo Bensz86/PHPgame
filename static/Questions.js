@@ -119,7 +119,7 @@ function SelectQuestion(tpyeNumber){
         document.getElementById("Option1TEXT").textContent = Answers[selectedQuestion][1]
         document.getElementById("Option2TEXT").textContent = Answers[selectedQuestion][2]
         //if()
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var socket = io.connect('https://' + document.domain + ':' + location.port);
         function sendMessage(message) {
             socket.emit('message_from_board', message);
         }
