@@ -1,8 +1,8 @@
 const Player1 = new PLAYER({
-  Idle_Animation: "static/img/Player1/Idle_update.gif",
-  Attack_Animation: "static/img/Player1/Attack_update.gif",
-  Hurt_Animation: "static/img/Player1/TakeHit_update.gif",
-  Run_Animation: "static/img/Player1/Run_update.gif",
+  Idle_Animation: "static/img/Player1/Idle_Update.gif",
+  Attack_Animation: "static/img/Player1/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player1/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player1/Run_Update.gif",
   Portrait: "static/img/Player1/Portrait.png",
   id: "Player1",
   postion: "absolute",
@@ -28,10 +28,10 @@ const Curse1 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Player2 = new PLAYER({
-  Idle_Animation: "static/img/Player2/Idle_update.gif",
-  Attack_Animation: "static/img/Player2/Attack_update.gif",
-  Hurt_Animation: "static/img/Player2/TakeHit_update.gif",
-  Run_Animation: "static/img/Player2/Run_update.gif",
+  Idle_Animation: "static/img/Player2/Idle_Update.gif",
+  Attack_Animation: "static/img/Player2/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player2/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player2/Run_Update.gif",
   Portrait: "static/img/Player2/Portrait.png",
   id: "Player2",
   postion: "absolute",
@@ -57,10 +57,10 @@ const Curse2 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Player3 = new PLAYER({
-  Idle_Animation: "static/img/Player3/Idle_update.gif",
-  Attack_Animation: "static/img/Player3/Attack_update.gif",
-  Hurt_Animation: "static/img/Player3/TakeHit_update.gif",
-  Run_Animation: "static/img/Player3/Run_update.gif",
+  Idle_Animation: "static/img/Player3/Idle_Update.gif",
+  Attack_Animation: "static/img/Player3/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player3/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player3/Run_Update.gif",
   Portrait: "static/img/Player3/Portrait.png",
   id: "Player3",
   postion: "absolute",
@@ -86,10 +86,10 @@ const Curse3 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Player4 = new PLAYER({
-  Idle_Animation: "static/img/Player4/Idle_update.gif",
-  Attack_Animation: "static/img/Player4/Attack_update.gif",
-  Hurt_Animation: "static/img/Player4/TakeHit_update.gif",
-  Run_Animation: "static/img/Player4/Run_update.gif",
+  Idle_Animation: "static/img/Player4/Idle_Update.gif",
+  Attack_Animation: "static/img/Player4/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player4/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player4/Run_Update.gif",
   Portrait: "static/img/Player4/Portrait.png",
   id: "Player4",
   postion: "absolute",
@@ -115,10 +115,10 @@ const Curse4 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Player5 = new PLAYER({
-  Idle_Animation: "static/img/Player5/Idle_update.gif",
-  Attack_Animation: "static/img/Player5/Attack_update.gif",
-  Hurt_Animation: "static/img/Player5/TakeHit_update.gif",
-  Run_Animation: "static/img/Player5/Run_update.gif",
+  Idle_Animation: "static/img/Player5/Idle_Update.gif",
+  Attack_Animation: "static/img/Player5/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player5/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player5/Run_Update.gif",
   Portrait: "static/img/Player5/Portrait.png",
   id: "Player5",
   postion: "absolute",
@@ -144,21 +144,21 @@ scale: 0.2
 })
 ///////////////////////////////////////////////////////////////
 const Player6 = new PLAYER({
-  Idle_Animation: "static/img/Player6/Idle_update.gif",
-  Attack_Animation: "static/img/Player6/Attack_update.gif",
-  Hurt_Animation: "static/img/Player6/TakeHit_update.gif",
-  Run_Animation: "static/img/Player6/Run_update.gif",
+  Idle_Animation: "static/img/Player6/Idle_Update.gif",
+  Attack_Animation: "static/img/Player6/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player6/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player6/Run_Update.gif",
   Portrait: "static/img/Player6/Portrait.png",
   id: "Player6",
   postion: "absolute",
   top: "21%",
-  left: "0%",  
-  width_value: 33.75,
-  height_value: 60,
+  left: "12.5%",  
+  width_value: 26.04,
+  height_value: 35.18,
   attack_length: 1200,
   hurt_length: 450,
   original_size: 500,
-  scale: 1
+  scale: 1.7
 })
 const Curse6 = new CURSE({
   Idle_Animation: "static/img/Curse.gif",
@@ -173,21 +173,21 @@ const Curse6 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Player7 = new PLAYER({
-  Idle_Animation: "static/img/Player7/Idle_update.gif",
-  Attack_Animation: "static/img/Player7/Attack_update.gif",
-  Hurt_Animation: "static/img/Player7/TakeHit_update.gif",
-  Run_Animation: "static/img/Player7/Run_update.gif",
+  Idle_Animation: "static/img/Player7/Idle_Update.gif",
+  Attack_Animation: "static/img/Player7/Attack_Update.gif",
+  Hurt_Animation: "static/img/Player7/TakeHit_Update.gif",
+  Run_Animation: "static/img/Player7/Run_Update.gif",
   Portrait: "static/img/Player7/Portrait.png",
   id: "Player7",
   postion: "absolute",
-  top: "35%",
-  left: "15%",  
-  width_value: 33.75,
-  height_value: 60,
+  top: "33%",
+  left: "11%",  
+  width_value: 23.43,
+  height_value: 33.33,
   attack_length: 1200,
   hurt_length: 600,
   original_size: 450,
-  scale: 0.7
+  scale: 1.3
 })
 const Curse7 = new CURSE({
   Idle_Animation: "static/img/Curse.gif",
@@ -202,29 +202,29 @@ const Curse7 = new CURSE({
 })
 ///////////////////////////////////////////////////////////////
 const Boss1 = new PLAYER({
-  Idle_Animation: "static/img/Boss 1/Idle_update.gif",
-  Attack_Animation: "static/img/Boss 1/Attack_update.gif",
+  Idle_Animation: "static/img/Boss 1/Idle_Update.gif",
+  Attack_Animation: "static/img/Boss 1/Attack_Update.gif",
   Hurt_Animation: "static/img/Boss 1/TakeHit_Update.gif",
-  Run_Animation: "static/img/Boss 1/Idle_update.gif",
-  Death_Animation: "static/img/Boss 1/Death_update.gif",
+  Run_Animation: "static/img/Boss 1/Idle_Update.gif",
+  Death_Animation: "static/img/Boss 1/Death_Update.gif",
   id: "Boss1",
   postion: "absolute",
-  top: "25%",
-  left: "60%",
+  top: "10%",
+  left: "50%",
   width_value: 31.25,
   height_value: 55.55555555555556,
   attack_length: 1200,
   hurt_length: 600,
   original_size: 400,
-  scale: 1
+  scale: 1.5
 })
 
 const Boss2 = new PLAYER({
-  Idle_Animation: "static/img/Boss 2/Idle_update.gif",
-  Attack_Animation: "static/img/Boss 2/Attack_update.gif",
+  Idle_Animation: "static/img/Boss 2/Idle_Update.gif",
+  Attack_Animation: "static/img/Boss 2/Attack_Update.gif",
   Hurt_Animation: "static/img/Boss 2/TakeHit_Update.gif",
-  Run_Animation: "static/img/Boss 2/Run_update.gif",
-  Death_Animation: "static/img/Boss 2/Death_update.gif",
+  Run_Animation: "static/img/Boss 2/Run_Update.gif",
+  Death_Animation: "static/img/Boss 2/Death_Update.gif",
   id: "Boss2",
   postion: "absolute",
   top: "10%",
@@ -238,55 +238,55 @@ const Boss2 = new PLAYER({
 })
 
 const Boss3 = new PLAYER({
-  Idle_Animation: "static/img/Boss 3/Idle_update.gif",
-  Attack_Animation: "static/img/Boss 3/Attack_update.gif",
+  Idle_Animation: "static/img/Boss 3/Idle_Update.gif",
+  Attack_Animation: "static/img/Boss 3/Attack_Update.gif",
   Hurt_Animation: "static/img/Boss 3/TakeHit_Update.gif",
   Run_Animation: "static/img/Boss 3/Run_Update.gif",
-  Death_Animation: "static/img/Boss 3/Death_update.gif",
+  Death_Animation: "static/img/Boss 3/Death_Update.gif",
   id: "Boss3",
   postion: "absolute",
-  top: "10%",
-  left: "50%",
+  top: "0%",
+  left: "45%",
   width_value: 31.25,
   height_value: 55.55555555555556,
   attack_length: 900,
   hurt_length: 600,
   original_size: 400,
-  scale: 1.5
+  scale: 1.7
 })
 
 const Boss4 = new PLAYER({
-  Idle_Animation: "static/img/Boss 4/Idle_update.gif",
-  Attack_Animation: "static/img/Boss 4/Attack_update.gif",
+  Idle_Animation: "static/img/Boss 4/Idle_Update.gif",
+  Attack_Animation: "static/img/Boss 4/Attack_Update.gif",
   Hurt_Animation: "static/img/Boss 4/TakeHit_Update.gif",
-  Run_Animation: "static/img/Boss 4/Run_update.gif",
-  Death_Animation: "static/img/Boss 4/Death_update.gif",
+  Run_Animation: "static/img/Boss 4/Run_Update.gif",
+  Death_Animation: "static/img/Boss 4/Death_Update.gif",
   id: "Boss4",
   postion: "absolute",
-  top: "10%",
-  left: "50%",
+  top: "0%",
+  left: "45%",
   width_value: 31.25,
   height_value: 55.55555555555556,
   attack_length: 1200,
   hurt_length: 600,
-  original_size: 400,
-  scale: 1.5
+  original_size: 600,
+  scale: 1.7
 })
 
 const Boss5 = new PLAYER({
-  Idle_Animation: "static/img/Boss 5/Idle_update.gif",
-  Attack_Animation: "static/img/Boss 5/Attack_update.gif",
+  Idle_Animation: "static/img/Boss 5/Idle_Update.gif",
+  Attack_Animation: "static/img/Boss 5/Attack_Update.gif",
   Hurt_Animation: "static/img/Boss 5/TakeHit_Update.gif",
-  Run_Animation: "static/img/Boss 5/Run_update.gif",
-  Death_Animation: "static/img/Boss 5/Death_update.gif",
+  Run_Animation: "static/img/Boss 5/Run_Update.gif",
+  Death_Animation: "static/img/Boss 5/Death_Update.gif",
   id: "Boss5",
   postion: "absolute",
-  top: "10%",
-  left: "50%",
+  top: "20%",
+  left: "59%",
   width_value: 31.25,
   height_value: 55.55555555555556,
-  attack_length: 900,
-  hurt_length: 600,
+  attack_length: 2100,
+  hurt_length: 400,
   original_size: 400,
-  scale: 1.5
+  scale: 1.3
 })

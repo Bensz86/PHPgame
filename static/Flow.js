@@ -137,22 +137,114 @@ var ZoliChecked = false
 var DezsoChecked = false
 
 var RoundCounter = 1
-var MaximumRound = 1
+var MaximumRound = 3
 
 var Player1Distance = 60
 var Player2Distance = 60
 var Player3Distance = 60
 var Player4Distance = 50
 var Player5Distance = 50
-var Player6Distance = 50
+var Player6Distance = 55
 var Player7Distance = 50
 
 var TimerInterrupted = false
+
+var Player1Name = ""
+var Player2Name = ""
+var Player3Name = ""
+var Player4Name = ""
+var Player5Name = ""
+var Player6Name = ""
+var Player7Name = ""
+
+var Player1Named = false
+var Player2Named = false
+var Player3Named = false
+var Player4Named = false
+var Player5Named = false
+var Player6Named = false
+var Player7Named = false
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////////Prologue//////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+function ShowPrologue(){
+  if(CurrentLevel == 0){
+    document.getElementById("background").src = "img/Levels/Level5.gif"
+
+    for (let i = 1; i < 5; i++) {
+        document.getElementById("ProBoss"+i+"").hidden = false
+    }
+
+    delay(5000).then(() => ChangeStance())
+
+    function ChangeStance(){
+      for (let i = 2; i < 5; i++) {
+        document.getElementById("ProBoss"+i+"").src = "img/Boss "+i+"/Idle_Update.gif"
+      } 
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////
+//////////////////////////////ANSWER QUESTION//////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+function Player1GivesName(){
+  if (GameStarted == false & Player1Named == false){
+    Player1Name = document.getElementById("Player1TypeinName").value
+    document.getElementById("Player1Name").hidden = true
+    Player1Named = true
+  }
+}
+function Player2GivesName(){
+  if (GameStarted == false & Player2Named == false){
+    Player2Name = document.getElementById("Player2TypeinName").value
+    document.getElementById("Player2Name").hidden = true
+    Player2Named = true
+  }
+}
+function Player3GivesName(){
+  if (GameStarted == false & Player3Named == false){
+    Player3Name = document.getElementById("Player3TypeinName").value
+    document.getElementById("Player3Name").hidden = true
+    Player3Named = true
+  }
+}
+function Player4GivesName(){
+  if (GameStarted == false & Player4Named == false){
+    Player4Name = document.getElementById("Player4TypeinName").value
+    document.getElementById("Player4Name").hidden = true
+    Player4Named = true
+  }
+}
+function Player5GivesName(){
+  if (GameStarted == false & Player5Named == false){
+    Player5Name = document.getElementById("Player5TypeinName").value
+    document.getElementById("Player5Name").hidden = true
+    Player5Named = true
+  }
+}
+function Player6GivesName(){
+  if (GameStarted == false & Player6Named == false){
+    Player6Name = document.getElementById("Player6TypeinName").value
+    document.getElementById("Player6Name").hidden = true
+    Player6Named = true
+  }
+}
+function Player7GivesName(){
+  if (GameStarted == false & Player7Named == false){
+    Player7Name = document.getElementById("Player7TypeinName").value
+    document.getElementById("Player7Name").hidden = true
+    Player7Named = true
+  }
+}
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////INIT GAME//////////////////////////////
 ////////////////////////////////////////////////////////////////////
 function StartGame() {
     if(GameStarted == false){
+      for (let i = 1; i < 5; i++) {
+        document.getElementById("ProBoss"+i+"").hidden = true
+      }
       //eval("Boss"+SelectedBoss+".init()")
       Player3.init()
       Player2.init()
@@ -168,6 +260,12 @@ function StartGame() {
       Curse5.init()
       Curse6.init()
       Curse7.init()
+      for (let i = 1; i < 8; i++) {
+        if(eval("Player"+i+"Name == ''")){
+          eval("Player"+i+"Name = 'Player "+i+"'")
+          document.getElementById("Player"+i+"Name").hidden = true
+        }
+      }
       GameStarted = true
     }
 }
@@ -178,7 +276,7 @@ function LoadLevel(){
   if(CurrentLevel < 5 & eval("Level"+CurrentLevel+"Completed == true")){
     CurrentLevel = CurrentLevel + 1
     SelectedBoss = SelectedBoss + 1
-    document.getElementById("background").src = "static/img/Levels/Level"+CurrentLevel+".gif"
+    document.getElementById("background").src = "img/Levels/Level"+CurrentLevel+".gif"
     RoundEnded = false
     if(Level0Completed){
       StartGame()
@@ -262,13 +360,15 @@ function StartRound(){
     
     TimerInterrupted = false
 
-    document.getElementById("Zoli").src = "static/img/Zoli_Kard_Lent.png"
-    document.getElementById("Dezso").src = "static/img/Dezso_Bot_Lent.png"
+    document.getElementById("Zoli").src = "img/Zoli_Kard_Lent.png"
+    document.getElementById("Dezso").src = "img/Dezso_Bot_Lent.png"
     document.getElementById("Zoli").hidden = true
     document.getElementById("Dezso").hidden = true
-    document.getElementById("Boom").src = "static/img/Blessing.gif"
+    document.getElementById("Boom").src = "img/Blessing.gif"
     document.getElementById("Boom").hidden = true
-    
+    document.getElementById("ZoliBack").hidden = true
+    document.getElementById("DezsoBack").hidden = true
+
     for (let i = 0; i < 3; i++) {
       document.getElementById("Option"+i+"TEXT").style.border = "none";
       document.getElementById("Option"+i+"TEXT").style.color = "black";
@@ -281,17 +381,18 @@ function StartRound(){
 //////////////////////////////////////////////////////////////////////////
 function ShowFonokok(){
   if(CurrentLevel == 1){
+    document.getElementById("Rounds").hidden = true
     document.getElementById("background").hidden = true
     for (let i = 1; i < 8; i++) {
         eval("Player"+i+".hide()")
     }
     Boss1.hide()
     document.getElementById("ZoliDezso").hidden = false
-    document.getElementById("Boom").src = "static/img/Blessing.gif"
+    document.getElementById("Boom").src = "img/Blessing.gif"
     delay(6000).then(() => document.getElementById("Boom").hidden = false)
     delay(8100).then(() => document.getElementById("Boom").hidden = true)
-    delay(7200).then(() => document.getElementById("ZoliDezso").src = "static/img/ZoliDezso_transformed.png")
-    delay(9000).then(() => document.getElementById("ZoliDezso").src = "static/img/ZoliDezso_transformed_labeled.png")
+    delay(7200).then(() => document.getElementById("ZoliDezso").src = "img/ZoliDezso_transformed.png")
+    delay(9000).then(() => document.getElementById("ZoliDezso").src = "img/ZoliDezso_transformed_labeled.png")
   }
 }
 
@@ -302,7 +403,7 @@ function HideFonokok(){
         eval("Player"+i+".show()")
     }
     Boss1.show()
-    document.getElementById("Boom").src = "static/img/Blessing.gif"
+    document.getElementById("Boom").src = "img/Blessing.gif"
     document.getElementById("Boom").hidden = true
     document.getElementById("ZoliDezso").hidden = true
   }
@@ -324,11 +425,27 @@ function MoveBoss(){
     var step=-1;
     var x=(document.getElementById("Boss"+SelectedBoss+"").offsetLeft / window.innerWidth) * 100
     
-    if(x > 10){
+    var endNum
+    var endAttack
+    
+    if(SelectedBoss == 5){
+      endNum = 59
+      endAttack = 0
+    }else{
+      endNum = 10
+      endAttack = 1400
+    }
+
+    if(x > endNum){
         document.getElementById("Boss"+SelectedBoss+"").style.left= x + step + "%";
-    }else if(x <= 10){
+    }else if(x <= endNum){
         clearTimeout(my_time);
         eval("Boss"+SelectedBoss + ".Attack()")
+
+        if(SelectedBoss == 5){
+          document.getElementById("FIRE").hidden = false
+          delay(2100).then(() => document.getElementById("FIRE").hidden = true)
+        }
 
         delay(eval("Boss"+SelectedBoss+".GetAttackLength()")).then(() => HurtPLayers())
         function HurtPLayers(){
@@ -336,7 +453,7 @@ function MoveBoss(){
             eval("Player"+i+".Hurt()")
           }
         }
-        delay(1400).then(() => eval("ResetBossPos(Boss"+SelectedBoss+")"))
+        delay(endAttack).then(() => eval("ResetBossPos(Boss"+SelectedBoss+")"))
     }
 }
 
@@ -631,15 +748,17 @@ function StartTimer(){
   }
 }
 function CheckQuestion(){
-  for (let i = 0; i < 3; i++) {
-    if(i == CorrectAnswers[selectedQuestion]){
-      document.getElementById("Option"+i+"TEXT").style.border = "solid";
-      document.getElementById("Option"+i+"TEXT").style.color = "red";
-    }else{
-      document.getElementById("Option"+i+"TEXT").style.fontSize = "10px";
+  if(Player1Answered & Player2Answered & Player3Answered & Player4Answered & Player5Answered & Player6Answered & Player7Answered & ZoliAnswered & DezsoAnswered){
+    for (let i = 0; i < 3; i++) {
+      if(i == CorrectAnswers[selectedQuestion]){
+        document.getElementById("Option"+i+"TEXT").style.border = "solid";
+        document.getElementById("Option"+i+"TEXT").style.color = "red";
+      }else{
+        document.getElementById("Option"+i+"TEXT").style.fontSize = "10px";
+      }
     }
+    QuestionAnswered = true
   }
-  QuestionAnswered = true
 }
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////LIFT CURSE & GIVE BONUES//////////////////////////////
@@ -651,36 +770,38 @@ function CheckZoli(){
 
     if(ZoliAnsweredCorrectly){
       document.getElementById("Zoli").hidden = false
-      delay(5000).then(() => document.getElementById("Zoli").src = "static/img/Zoli_Kard_Fent.png")
+      delay(5000).then(() => document.getElementById("Zoli").src = "img/Zoli_Kard_Fent.png")
       ZoliBonus = 3
       delay(5100).then(() => document.getElementById("ZoliBonus").hidden = false)
     }else{
-      document.getElementById("Tumbleweed").hidden = false
-      delay(3000).then(() => document.getElementById("Tumbleweed").hidden = true)
+      document.getElementById("Zoli").hidden = false
+      delay(5000).then(() => document.getElementById("Zoli").hidden = true)
+      delay(5000).then(() => document.getElementById("ZoliBack").hidden = false)
     }
     ZoliChecked = true
   }
 }
 function CheckDezso(){
   if(QuestionAnswered & ZoliChecked){
-    document.getElementById("Zoli").hidden = true
+    //document.getElementById("Zoli").hidden = true
     document.getElementById("ZoliBonus").hidden = true
 
     if(DezsoAnsweredCorrectly){
       document.getElementById("Dezso").hidden = false
-      delay(5000).then(() => document.getElementById("Dezso").src = "static/img/Dezso_Bot_Fent.png")
+      delay(5000).then(() => document.getElementById("Dezso").src = "img/Dezso_Bot_Fent.png")
       DezsoBonus = 3
       delay(5100).then(() => document.getElementById("DezsoBonus").hidden = false)
     }else{
-      document.getElementById("Tumbleweed").hidden = false
-      delay(3000).then(() => document.getElementById("Tumbleweed").hidden = true)
+      document.getElementById("Dezso").hidden = false
+      delay(5000).then(() => document.getElementById("Dezso").hidden = true)
+      delay(5000).then(() => document.getElementById("DezsoBack").hidden = false)
     }
     DezsoChecked = true
   }
 }
 function CheckDezsoAndZoli(){
   if(QuestionAnswered & ZoliChecked & DezsoChecked){
-    document.getElementById("Dezso").hidden = true
+    //document.getElementById("Dezso").hidden = true
     document.getElementById("DezsoBonus").hidden = true
 
     if(ZoliAnsweredCorrectly & DezsoAnsweredCorrectly){
@@ -712,6 +833,9 @@ function CheckDezsoAndZoli(){
 ////////////////////////////////////////////////////////////////////////
 function SelectPlayer(){
   if (QuestionAnswered & FonokChecked){
+    document.getElementById("Zoli").hidden = true
+    document.getElementById("Dezso").hidden = true
+
     document.getElementById("DoubleBlessing").hidden = true
     document.getElementById("dice"+finalNumber+"").setAttribute("hidden", "hidden")
     document.getElementById("double_dice1_"+finalNumber1+"").setAttribute("hidden", "hidden")
@@ -720,54 +844,69 @@ function SelectPlayer(){
     if(SelectedPlayer == 1){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player1Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
+      Player1.SetPlayerName(Player1Name)
       Player1.Highlight()
     }
     if(SelectedPlayer == 1){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player1Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
+      //Player1.SetPlayerName(Player1Name)
       Player1.Highlight()
+      socket.emit('message_from_board', "dice,1");
     }
     if(Player1Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player2Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 2
+      Player2.SetPlayerName(Player2Name)
       Player2.Highlight()
+      socket.emit('message_from_board', "dice,2");
     }
     if(Player2Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player3Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 3
+      Player3.SetPlayerName(Player3Name)
       Player3.Highlight()
+      socket.emit('message_from_board', "dice,3");
     }
     if(Player3Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player4Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 4
+      Player4.SetPlayerName(Player4Name)
       Player4.Highlight()
+      socket.emit('message_from_board', "dice,4");
     }
     if(Player4Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player5Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 5
+      Player5.SetPlayerName(Player5Name)
       Player5.Highlight()
+      socket.emit('message_from_board', "dice,5");
     }
     if(Player5Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player6Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 6
-      Player6.Highlight()      
+      Player6.SetPlayerName(Player6Name)
+      Player6.Highlight()
+      socket.emit('message_from_board', "dice,6");
     }
     if(Player6Rolled == true){
       document.getElementById("Score").textContent = "ÖSSZPONTSZÁM: " + Player7Score
       document.getElementById("CurrentRoll").textContent = "AKTUÁLIS DOBÁS: 0"
       SelectedPlayer = 7
+      Player7.SetPlayerName(Player7Name)
       Player7.Highlight()
+      socket.emit('message_from_board', "dice,7");
     }
     if(Player7Rolled == true){
       Player7.RemoveHighlight()
     }
     PlayerSelected = true
-    document.getElementById("GoodAnswer").src = "static/img/GoodAnswer.png"
+    document.getElementById("GoodAnswer").src = "img/GoodAnswer.png"
     document.getElementById("GoodAnswer").hidden = true
     document.getElementById("BadAnswer").hidden = true
     document.getElementById("CursePortrait").hidden = true
@@ -784,7 +923,7 @@ function SelectPlayer(){
     if(eval("Player"+SelectedPlayer+"Cursed")){
       document.getElementById("CursePortrait").hidden = false
       if(eval("Player"+SelectedPlayer+"AnsweredCorrectly")){
-        document.getElementById("GoodAnswer").src = "static/img/GoodAnswerButNO.png"
+        document.getElementById("GoodAnswer").src = "img/GoodAnswerButNO.png"
         document.getElementById("GoodAnswer").hidden = false
       }
     }
@@ -834,6 +973,7 @@ function FinalDice(){
       eval("Player"+SelectedPlayer+"Score = Player"+SelectedPlayer+"Score + finalNumber + DezsoBonus + ZoliBonus + DoubleBonus")
       eval("Player"+SelectedPlayer+".UpdateScore()")
       eval("Player"+SelectedPlayer+"Rolled = true")
+      //document.getElementById("PlayerName").textContent = eval("Player"+SelectedPlayer+"Name")
       
       if(SelectedPlayer == 7){
         PlayerSelected = false
@@ -856,11 +996,12 @@ function FinalDoubleDice(){
   delay(ShowDiceTime).then(() => ShowStats())
 
   function ShowStats(){
-    //document.getElementById("double_dice2_"+finalNumber2+"").setAttribute("hidden", "hidden")
+    //document.getElementById("double_dice2_"+finalNumber2+"").setAttribute("hidden", "hidden")    
     eval("Player"+SelectedPlayer+"CurrentRoll = finalNumber1 + finalNumber2 + DezsoBonus + ZoliBonus + DoubleBonus")
     eval("Player"+SelectedPlayer+"Score = Player"+SelectedPlayer+"Score + finalNumber1 + finalNumber2 + DezsoBonus + ZoliBonus + DoubleBonus")
     eval("Player"+SelectedPlayer+".UpdateScore()")
     eval("Player"+SelectedPlayer+"Rolled = true")
+    //document.getElementById("PlayerName").textContent = eval("Player"+SelectedPlayer+"Name")
     if(SelectedPlayer == 7){
       PlayerSelected = false    
     }
@@ -954,4 +1095,57 @@ function EndRound(){
       RoundCounter = RoundCounter + 1
     }
   }
+}
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////Epilogue//////////////////////////////
+////////////////////////////////////////////////////////////////////
+function ShowEpilogue(){
+
+  if(Level5Completed){
+
+    Player1.show()
+    Player2.show()
+    Player3.show()
+    Player4.show()
+    Player5.show()
+    Player6.show()
+    Player7.show()
+
+    document.getElementById("Zoli").src = "img/Zoli_Kard_Fent.png"
+    document.getElementById("Zoli").hidden = false
+    
+    document.getElementById("ZoliBonus").src = "img/WIN.png"
+
+    document.getElementById("Dezso").src = "img/Dezso_Bot_Fent.png"
+    document.getElementById("Dezso").hidden = false
+
+    delay(5100).then(() => document.getElementById("ZoliBonus").hidden = false)
+  } 
+
+}
+
+function ShowScores(){
+  if(Level5Completed){
+    const points = [Player1Score, Player2Score, Player3Score, Player4Score, Player5Score, Player6Score, Player7Score];
+    
+    console.log(points)
+
+    points.sort(function(a, b){return b - a});
+
+    console.log(points)
+
+    Math.max(Player1Score, Player2Score, Player3Score, Player4Score, Player5Score, Player6Score, Player7Score)
+
+    for (let i = 1; i < 8; i++) {
+      document.getElementById("Place"+i+"Points").textContent = eval("Player"+i+"Score")
+      document.getElementById("Place"+i+"").textContent = eval("Player"+i+"Name")
+
+      if(eval("Player"+i+"Score == Math.max(Player1Score, Player2Score, Player3Score, Player4Score, Player5Score, Player6Score, Player7Score)")){
+        document.getElementById("Place"+i+"Box").style.backgroundColor = "red"
+      }
+    }
+
+    document.getElementById("scoreboard").hidden = false
+  }
+
 }

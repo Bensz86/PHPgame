@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
+</head>
+
+<body id="body" onload="ResizeEverything()" onresize="ResizeEverything()">
+  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>-->
+  <!--************************************************************************************************************************************************************************-->
+  <!--****************************************************************************CUSTOM CSS FILES****************************************************************************-->
+  <!--************************************************************************************************************************************************************************-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/CSS.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/SideNav.css')}}">
+  <!--***********************************************************************************************************************************************************************-->
+  <!--****************************************************************************CUSTOM JS FILES****************************************************************************-->
+  <!--***********************************************************************************************************************************************************************-->
+  <script src="{{ url_for('static', filename='Classes.js')}}"></script>
+  <script src="{{ url_for('static', filename='Constructor.js')}}"></script>
+  <script src="{{ url_for('static', filename='Flow.js')}}"></script>
+  <script src="{{ url_for('static', filename='SideNav.js')}}"></script>
+  <script src="{{ url_for('static', filename='Questions.js')}}"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+  <!--**********************************************************************************************************************************************************************-->
+  <!--****************************************************************************DEBUGGING MENU****************************************************************************-->
+  <!--**********************************************************************************************************************************************************************-->
+  <!-- The overlay -->
+  <div id="myNav" class="overlay">
+
+
+      <!-- Button to close the overlay navigation -->
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+      <!-- Overlay content -->
+      <div class="overlay-content">
+        <a href="#" onclick="ShowPrologue()">ADMIN: Show prologue</a>
+        <a href="#" onclick="LoadLevel()">ADMIN: Next Level</a>
+        <a href="#" onclick="StartRound()">ADMIN: Start Round</a>
+        <a href="#" onclick="ShowFonokok()">ADMIN: Show Fonokok</a>
+        <a href="#" onclick="HideFonokok()">ADMIN: Hide Fonokok</a>
+        <a href="#" onclick="BossAttack()">ADMIN: Boss Attack</a>
+        <a href="#" onclick="QuestionSelector()">ADMIN: Select Question</a>
+        <div id="PlayerNames">
+          <div id="Player1Name">
+            <input id="Player1TypeinName">
+            <a href="#" onclick="Player1GivesName()">CLIENT: PLAYER 1 Name</a>
+          </div>
+          <div id="Player2Name">
+            <input id="Player2TypeinName">
+            <a href="#" onclick="Player2GivesName()">CLIENT: PLAYER 2 Name</a>
+          </div>
+          <div id="Player3Name">
+            <input id="Player3TypeinName">
+            <a href="#" onclick="Player3GivesName()">CLIENT: PLAYER 3 Name</a>
+          </div>
+          <div id="Player4Name">
+            <input id="Player4TypeinName">
+            <a href="#" onclick="Player4GivesName()">CLIENT: PLAYER 4 Name</a>
+          </div>
+          <div id="Player5Name">
+            <input id="Player5TypeinName">
+            <a href="#" onclick="Player5GivesName()">CLIENT: PLAYER 5 Name</a>
+          </div>
+          <div id="Player6Name">
+            <input id="Player6TypeinName">
+            <a href="#" onclick="Player6GivesName()">CLIENT: PLAYER 6 Name</a>
+          </div>
+          <div id="Player7Name">
+            <input id="Player7TypeinName">
+            <a href="#" onclick="Player7GivesName()">CLIENT: PLAYER 7 Name</a>
+          </div>
+        </div>
+        <div id="TypeinAnswers" hidden>
+          <div id="Player1Answer">
+            <input id="Player1TypeinAnswer">
+            <a href="#" onclick="Player1GivesAnswer()">CLIENT: PLAYER 1 Answer</a>
+          </div>
+          <div id="Player2Answer">
+            <input id="Player2TypeinAnswer">
+            <a href="#" onclick="Player2GivesAnswer()">CLIENT: PLAYER 2 Answer</a>
+          </div>
+          <div id="Player3Answer">
+            <input id="Player3TypeinAnswer">
+            <a href="#" onclick="Player3GivesAnswer()">CLIENT: PLAYER 3 Answer</a>
+          </div>
+          <div id="Player4Answer">
+            <input id="Player4TypeinAnswer">
+            <a href="#" onclick="Player4GivesAnswer()">CLIENT: PLAYER 4 Answer</a>
+          </div>
+          <div id="Player5Answer">
+            <input id="Player5TypeinAnswer">
+            <a href="#" onclick="Player5GivesAnswer()">CLIENT: PLAYER 5 Answer</a>
+          </div>
+          <div id="Player6Answer">
+            <input id="Player6TypeinAnswer">
+            <a href="#" onclick="Player6GivesAnswer()">CLIENT: PLAYER 6 Answer</a>
+          </div>
+          <div id="Player7Answer">
+            <input id="Player7TypeinAnswer">
+            <a href="#" onclick="Player7GivesAnswer()">CLIENT: PLAYER 7 Answer</a>
+          </div>
+          <div id="ZoliAnswer">
+            <input id="ZoliTypeinAnswer">
+            <a href="#" onclick="ZoliGivesAnswer()">CLIENT: Zoli Answer</a>
+          </div>
+          <div id="DezsoAnswer">
+            <input id="DezsoTypeinAnswer">
+            <a href="#" onclick="DezsoGivesAnswer()">CLIENT: Dezső Answer</a>
+          </div>
+        </div>
+        <a href="#" onclick="StartTimer()">ADMIN: Start Timer</a>
+        <a href="#" onclick="CheckQuestion()">ADMIN: Check Question</a>        
+        <a href="#" onclick="CheckZoli()">ADMIN: Check Zoli</a>
+        <a href="#" onclick="CheckDezso()">ADMIN: Check Dezso</a>
+        <a href="#" onclick="CheckDezsoAndZoli()">ADMIN: Check fonokok</a>
+        <a href="#" onclick="SelectPlayer()">ADMIN: Next Player</a>
+        <a href="#" onclick="RollTheDice()">CLIENT: Roll Dice</a>
+        <a href="#" onclick="PlayerAttack()">ADMIN: Players Attack</a>
+        <a href="#" onclick="EndRound()">ADMIN: End Round</a>
+      </div>
+
+    </div>
+
+    <!-- Use any element to open/show the overlay navigation menu -->
+    <button class="button" onclick="openNav()">DEBUG</button>
+
+    <!--*****************************************************************************************************************************************************************-->
+    <!--****************************************************************************QUESTIONS****************************************************************************-->
+    <!--*****************************************************************************************************************************************************************-->
+    <img id="Counter" src="{{ url_for('static', filename='img/Count.gif')}}" hidden>
+    <div class="Infos" id="Rounds" hidden>KÖR</div>
+    <div class="Infos" id="QuestionAnswered" hidden>A VÁLASZADÁSNAK VÉGE</div>
+    <div id="QuestionDIV" hidden>
+      <div id="QuestionTEXT">Ez egy kérdés</div>
+      <div class="OptionTEXT" id="Option0TEXT">VÁLASZ 1</div>
+      <div class="OptionTEXT" id="Option1TEXT">VÁLASZ 2</div>
+      <div class="OptionTEXT" id="Option2TEXT">VÁLASZ 3</div>
+    </div>
+    <!--***********************************************************************************************************************************************************************-->
+    <!--****************************************************************************CHARACTER SHEET****************************************************************************-->
+    <!--***********************************************************************************************************************************************************************-->
+    <div id="CharacterToolbar" class="float-container" hidden="true">
+
+      <div id="CharacterNamePortrait" class="float-child">
+        <div id="PlayerName">Character Name</div>
+        <img id="Portrait" src="{{ url_for('static', filename='img/Player1/Portrait.png')}}">
+      </div>
+  
+      <div class="float-child">
+        <div class="leftDetail" id="Score">ÖSSZPONTSZÁM: </div>
+        <div class="leftDetail" id="CurrentRoll">AKTUÁLIS DOBÁS: </div>
+      </div>
+  
+      <div id="ExtraStats1" class="float-child">
+        <img id="GoodAnswer" src="{{ url_for('static', filename='img/GoodAnswer.png')}}" hidden>
+        <img id="CursePortrait" src="{{ url_for('static', filename='img/CursedExtra.png')}}" hidden>
+        <img id="BadAnswer" src="{{ url_for('static', filename='img/BadAnswer.png')}}" hidden>
+      </div>
+  
+      <div id="ExtraStats2" class="float-child">
+        <img id="ZoliPortrait" src="{{ url_for('static', filename='img/ZoliExtra.png')}}" hidden>
+        <img id="DezsoPortrait" src="{{ url_for('static', filename='img/DezsoExtra.png')}}" hidden>
+        <img id="DoubleExtraPortrait" src="{{ url_for('static', filename='img/DoubleBlessExtra.png')}}" hidden>
+      </div>
+
+      <!--<div id="ExtraStats3" class="float-child">
+        
+      </div>-->
+
+    </div>
+    <!--************************************************************************************************************************************************************-->
+    <!--****************************************************************************BACKGROUND**********************************************************************-->
+    <!--************************************************************************************************************************************************************-->
+    <div id="DamageNumber" hidden>0</div>
+    <img id="ZoliBonus" src="i{{ url_for('static', filename='mg/ZoliBlessing.png')}}" hidden></img>
+    <img id="DezsoBonus" src="{{ url_for('static', filename='img/DezsoBlessing.png')}}" hidden></img>
+    <img id="Boom" src="{{ url_for('static', filename='img/Blessing.gif')}}" hidden></img>
+    <img id="DoubleBlessing" src="{{ url_for('static', filename='img/DoubleBlessing.png')}}" hidden></img>
+
+    <img id="background" src="{{ url_for('static', filename='img/Levels/Level0.gif')}}">
+    <img class="FONOK" id="ZoliDezso" src="{{ url_for('static', filename='img/ZoliDezso_original.png')}}" hidden>
+    <img class="FONOK" id="Zoli" src="{{ url_for('static', filename='img/Zoli_Kard_Lent.png')}}" hidden>
+    <img class="FONOK" id="ZoliBack" src="{{ url_for('static', filename='img/Zoli_Kard_Lent.png')}}" hidden>
+    <img class="FONOK" id="Dezso" src="{{ url_for('static', filename='img/Dezso_Bot_Lent.png')}}" hidden>
+    <img class="FONOK" id="DezsoBack" src="{{ url_for('static', filename='img/Dezso_Bot_Lent.png')}}" hidden>
+    <!--************************************************************************************************************************************************************-->
+    <!--****************************************************************************PROLOGUE****************************************************************************-->
+    <!--************************************************************************************************************************************************************-->
+    <img class="FONOK" id="DezsoBack" src="{{ url_for('static', filename='img/Dezso_Bot_Lent.png')}}" hidden>
+    <!--************************************************************************************************************************************************************-->
+    <!--****************************************************************************DICE****************************************************************************-->
+    <!--************************************************************************************************************************************************************-->
+    <div style="display: flex;justify-content: center;align-items: center">
+      <img class="dice" id="rolling_dice" src="{{ url_for('static', filename='img/Dice/ROLLING_DICE_SPEED3.gif')}}" hidden></img>
+    
+      <img class="dice" id="dice1" src="{{ url_for('static', filename='img/Dice/Dice1.png')}}" hidden></img>
+      <img class="dice" id="dice2" src="{{ url_for('static', filename='img/Dice/Dice2.png')}}" hidden></img>
+      <img class="dice" id="dice3" src="{{ url_for('static', filename='img/Dice/Dice3.png')}}" hidden></img>
+      <img class="dice" id="dice4" src="{{ url_for('static', filename='img/Dice/Dice4.png')}}" hidden></img>
+      <img class="dice" id="dice5" src="{{ url_for('static', filename='img/Dice/Dice5.png')}}" hidden></img>
+      <img class="dice" id="dice6" src="{{ url_for('static', filename='img/Dice/Dice6.png')}}" hidden></img>
+    </div>
+
+    <div id="double_rolling_dice" class="float-dice-container">
+
+      <div class="float-dice-left-child" style="display: flex;justify-content: center;align-items: center">
+        <img class="dice" id="double_rolling_dice1" src="img/Dice/ROLLING_DICE_SPEED3.gif" hidden></img>
+      
+        <img class="dice" id="double_dice1_1" src="img/Dice/Dice1.png"hidden></img>
+        <img class="dice" id="double_dice1_2" src="img/Dice/Dice2.png"hidden></img>
+        <img class="dice" id="double_dice1_3" src="img/Dice/Dice3.png"hidden></img>
+        <img class="dice" id="double_dice1_4" src="img/Dice/Dice4.png"hidden></img>
+        <img class="dice" id="double_dice1_5" src="img/Dice/Dice5.png"hidden></img>
+        <img class="dice" id="double_dice1_6" src="img/Dice/Dice6.png"hidden></img>
+      </div>
+
+      <div class="float-dice-right-child" style="display: flex;justify-content: center;align-items: center">
+        <img class="dice" id="double_rolling_dice2" src="img/Dice/ROLLING_DICE_SPEED3.gif" hidden></img>
+      
+        <img class="dice" id="double_dice2_1" src="img/Dice/Dice1.png"hidden></img>
+        <img class="dice" id="double_dice2_2" src="img/Dice/Dice2.png"hidden></img>
+        <img class="dice" id="double_dice2_3" src="img/Dice/Dice3.png"hidden></img>
+        <img class="dice" id="double_dice2_4" src="img/Dice/Dice4.png"hidden></img>
+        <img class="dice" id="double_dice2_5" src="img/Dice/Dice5.png"hidden></img>
+        <img class="dice" id="double_dice2_6" src="img/Dice/Dice6.png"hidden></img>
+      </div>
+    </div>
+    
+  </body>
+  <script>
+    var socket = io.connect('https://' + document.domain + ':' + location.port);
+    document.addEventListener('DOMContentLoaded', function () {
+      socket.on('message_to_board', function (message) {
+        console.log(message);
+        if (message === 'admin_prologue') { ShowPrologue() }
+        if (message === 'admin_next-level') { LoadLevel() }
+        if (message === 'admin_start-round') { StartRound() }
+        if (message === 'admin_show-fonokok') { ShowFonokok() }
+        if (message === 'admin_hide-fonokok') { HideFonokok() }
+        if (message === 'admin_boss-attack') { BossAttack() }
+        if (message === 'admin_select-question') { QuestionSelector() }
+        if (message === 'admin_start-timer') { StartTimer() }
+        if (message === 'admin_check-question') { CheckQuestion() }
+        if (message === 'admin_check-zoli') { CheckZoli() }
+        if (message === 'admin_check-dezso') { CheckDezso() }
+        if (message === 'admin_check-fonokok') { CheckDezsoAndZoli() }
+        if (message === 'admin_next-player') { SelectPlayer() }
+        if (message === 'admin_players-attack') { PlayerAttack() }
+        if (message === 'admin_end-round') { EndRound() }
+        if (message === 'admin_dice') {RollTheDice() }
+        if (message.startsWith("player")) {
+          nr = message.split(",")[1];
+          answer = message.split(",")[2];
+          if (nr=="1"){$("#Player1TypeinAnswer").val(answer);Player1GivesAnswer();}
+          if (nr=="2"){$("#Player2TypeinAnswer").val(answer);Player2GivesAnswer();}
+          if (nr=="3"){$("#Player3TypeinAnswer").val(answer);Player3GivesAnswer();}
+          if (nr=="4"){$("#Player4TypeinAnswer").val(answer);Player4GivesAnswer();}
+          if (nr=="5"){$("#Player5TypeinAnswer").val(answer);Player5GivesAnswer();}
+          if (nr=="6"){$("#Player6TypeinAnswer").val(answer);Player6GivesAnswer();}
+          if (nr=="7"){$("#Player7TypeinAnswer").val(answer);Player7GivesAnswer();}
+          if (nr=="zoli"){$("#ZoliTypeinAnswer").val(answer);ZoliGivesAnswer();}
+          if (nr=="dezso"){$("#DezsoTypeinAnswer").val(answer);DezsoGivesAnswer();}
+        }
+        if (message.startsWith("dice")) {
+        }
+      });
+      let count = 0;
+                  setInterval(() => {
+                      socket.volatile.emit("ping_board", ++count);
+                  }, 60000);
+    })
+  </script>
+  </html>

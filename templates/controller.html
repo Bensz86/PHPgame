@@ -77,8 +77,7 @@
                     return accentMap[match];
                 });
             }
-                const urlParams = new URLSearchParams(window.location.search);
-                const userValue = urlParams.get('user');
+
 
                 function setCookie(name, value, days) {
                     const expires = new Date();
@@ -101,7 +100,11 @@
                     return null;
                 }
 
+                const urlParams = new URLSearchParams(window.location.search);
+                const userValue = urlParams.get('user');
 
+                if (user=="dezso"){setCookie("teamname", "Dezso", 31);}
+                if (user=="zoli"){setCookie("teamname", "Zoli", 31);}
 
                 $("#teamname").click(function () {
                     team_accent = removeAccents($("#csapatnev input").val());
@@ -110,6 +113,7 @@
                     $("#csapatnev").hide();
                     team = team_accent;
                     writemsg2("Hajra " + team + "!", 0, 1)
+
                 });
 
                 $("#btnA").click(function () {
@@ -176,6 +180,13 @@
                     }
                     else if (message == "admin_allow_screen") {
                         displayallowed("yes");
+                        console.log("screen enabled");
+                        // code block
+                    }
+                    else if (message.startsWith("dice") && message.split[","][1]==userValue) {
+                        displayallowed("yes");
+                        dice();
+
                         console.log("screen enabled");
                         // code block
                     }
@@ -258,7 +269,10 @@
                 }
 
                 async function dice() {
+                    lcd.clearScreen();
                     await writemsg2("Dobj a kockaval!", 3, 1);
+                    await writemsg2("Nyomj (enter)-t",4,1);
+                    $('#sendit').val('dice');
                 }
 
                 function selectOpt(letter) {
