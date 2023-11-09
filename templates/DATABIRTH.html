@@ -183,7 +183,7 @@
     <!--****************************************************************************BACKGROUND**********************************************************************-->
     <!--************************************************************************************************************************************************************-->
     <div id="DamageNumber" hidden>0</div>
-    <img id="ZoliBonus" src="i{{ url_for('static', filename='mg/ZoliBlessing.png')}}" hidden></img>
+    <img id="ZoliBonus" src="{{ url_for('static', filename='img/ZoliBlessing.png')}}" hidden></img>
     <img id="DezsoBonus" src="{{ url_for('static', filename='img/DezsoBlessing.png')}}" hidden></img>
     <img id="Boom" src="{{ url_for('static', filename='img/Blessing.gif')}}" hidden></img>
     <img id="DoubleBlessing" src="{{ url_for('static', filename='img/DoubleBlessing.png')}}" hidden></img>
@@ -220,7 +220,7 @@
     <div id="double_rolling_dice" class="float-dice-container">
 
       <div class="float-dice-left-child" style="display: flex;justify-content: center;align-items: center">
-        <img class="dice" id="double_rolling_dice1" src="img/Dice/ROLLING_DICE_SPEED3.gif" hidden></img>
+        <img class="dice" id="double_rolling_dice1" src="{{ url_for('static', filename='img/Dice/ROLLING_DICE_SPEED3.gif')}}" hidden></img>
       
         <img class="dice" id="double_dice1_1" src="{{ url_for('static', filename='img/Dice/Dice1.png')}}"hidden></img>
         <img class="dice" id="double_dice1_2" src="{{ url_for('static', filename='img/Dice/Dice2.png')}}"hidden></img>

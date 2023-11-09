@@ -103,8 +103,8 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const userValue = urlParams.get('user');
 
-                if (user=="dezso"){setCookie("teamname", "Dezso", 31);}
-                if (user=="zoli"){setCookie("teamname", "Zoli", 31);}
+                if (userValue=="dezso"){setCookie("teamname", "Dezso", 31);}
+                if (userValue=="zoli"){setCookie("teamname", "Zoli", 31);}
 
                 $("#teamname").click(function () {
                     team_accent = removeAccents($("#csapatnev input").val());
