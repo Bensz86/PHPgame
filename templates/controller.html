@@ -183,7 +183,7 @@
                         console.log("screen enabled");
                         // code block
                     }
-                    else if (message.startsWith("dice") && message.split[","][1]==userValue) {
+                    else if (message.startsWith("dice") && message.split(",")[1]==userValue) {
                         displayallowed("yes");
                         dice();
 
@@ -332,6 +332,7 @@
                                 $("#csapatnev").hide();
                                 team = getCookie("teamname");
                                 writemsg2("Hajra " + team + "!", 0, 1)
+                                sendTeamname("teamname," + userValue + "," + $("#csapatnev input").val());
                             }
 
                             
